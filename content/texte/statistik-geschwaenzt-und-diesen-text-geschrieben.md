@@ -2,26 +2,26 @@
 title: "statistik geschwänzt und diesen text geschrieben"
 date: "2021-01-14"
 ---
-blau blüht der Himmel über den buckligen Bauten
-letzter Nebel durch die Straßen schleicht
+blau blüht der himmel über den buckligen bauten
+letzter nebel durch die straßen schleicht
 er fächert sich auf und verbleicht.
-ich nackt im Zimmer - der blick nach außen
-die Kälte bleibt.
+ich nackt im zimmer - der blick nach außen
+die kälte bleibt.
 
-die Haut duftet leise, Schlaf und Kissen
-erste Strahlen kitzeln flink
-die Wellen des Brunnens, geworfen vom Wind
+die haut duftet leise, schlaf und kissen
+erste strahlen kitzeln flink
+die wellen des brunnens, geworfen vom wind
 und reflektieren, dunkel umrissen
-was genauso ein Vogel unweit singt.
+was genauso ein vogel unweit singt.
 
-das Geheimnis der Nacht
-die Vernetzung aus Träumen
-sich im Dunkeln seicht
-durch die Stadt entfaltet
-der glühenden Hoffnung
-Halt gibt
+das geheimnis der nacht
+die vernetzung aus träumen
+sich im dunkeln seicht
+durch die stadt entfaltet
+der glühenden hoffnung
+halt gibt
 
-die Sonne stellt alles zurück an seinen Platz
-und Tau tropft aus den Bäumen
-ein Tag liegt vor mir, aufgefaltet
+die sonne stellt alles zurück an seinen platz
+und tau tropft aus den bäumen
+ein tag liegt vor mir, aufgefaltet
 ich will ihn nicht versäumen
