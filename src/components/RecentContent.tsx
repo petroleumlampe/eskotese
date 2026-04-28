@@ -17,7 +17,16 @@ export default function RecentContent({ text }: Props) {
   const { isLoggedIn } = useAuth()
 
   if (!text) {
-    return <p className="empty-state">noch keine texte.</p>
+    return (
+      <div>
+        {isLoggedIn && (
+          <div className="admin-bar">
+            <Link href="/neu" className="admin-btn">+ neuer text</Link>
+          </div>
+        )}
+        <p className="empty-state">noch keine texte.</p>
+      </div>
+    )
   }
 
   return (

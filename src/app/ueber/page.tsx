@@ -11,11 +11,10 @@ export default function UeberPage() {
     <div className="ueber-page">
       <div className="ueber-text">
         <p>
-          ich heiße ben und gieße texte in form! mein traum ist ein buch zu schreiben,
-          aber nur, damit das cover schön sein kann. kleinschreiben ist rebellion. oder so.
-          fühlen auch! danke dass deine gehirnzellen zucker hierfür geben. oder so.
+          hier werden texte in form gegossen! mein traum ist ein buch zu schreiben,
+          aber nur, damit das cover schön sein kann. kleinschreiben ist rebellion, natürlich.
         </p>
-        <p className="ueber-signature">&lt;3</p>
+        <p className="ueber-signature">&lt;3, ben</p>
       </div>
 
       <div className="ueber-login-area">
