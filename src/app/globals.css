@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
 
 :root {
   --bg: #1a2e1a;
@@ -7,6 +7,7 @@
   --muted: #8a9e6a;
   --muted-dark: #6b8050;
   --soft: #c8d4be;
+  --date: #b87848;
   --border: #2e4a2e;
   --editor-bg: #243424;
   --delete: #8b5e3c;
@@ -124,10 +125,10 @@ a:hover {
 
 /* Text display */
 .text-date {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-dark);
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--date);
   margin-bottom: 0.6rem;
 }
 
@@ -135,11 +136,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'EB Garamond', serif;
-  color: var(--muted-dark);
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  line-height: 1.6;
+  font-family: 'Cinzel', serif;
+  color: var(--date);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  line-height: 1.8;
   margin-top: 2.5rem;
 }
 
@@ -166,7 +167,7 @@ a:hover {
 
 .texte-item {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1.5rem;
   padding: 2rem 0;
   border-bottom: 1px solid var(--border);
@@ -181,13 +182,13 @@ a:hover {
 .texte-item-date-stacked {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
-  font-family: 'EB Garamond', serif;
-  color: var(--muted-dark);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  line-height: 1.6;
-  padding-top: 0.4rem;
+  font-family: 'Cinzel', serif;
+  color: var(--date);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  line-height: 1.8;
   flex-shrink: 0;
 }
 
