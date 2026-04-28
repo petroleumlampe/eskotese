@@ -6,7 +6,7 @@ was hast du heute gesehen, oma?
 die sonne. den postboten. die geranien im garten.
 
 und was hast du heute gesehen?
-wie ein blitz einschlägt, aber von der ISS aus. Wie jemand in einer Pfanne einen schneehügel runterskatet.
+wie ein blitz einschlägt, aber von der ISS aus. wie jemand in einer pfanne einen schneehügel runterskatet.
 ein rochen so groß wie eine kuh. gottesanbeterinnen in lebensgröße.
 den größten amethysten der welt.
 wie sich jemand die zigarette an der herdplatte ansteckt.
