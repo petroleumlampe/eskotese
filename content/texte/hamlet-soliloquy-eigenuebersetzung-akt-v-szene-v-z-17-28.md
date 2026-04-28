@@ -12,5 +12,3 @@ der sich auf der bühne sein momentchen lang quält, herumstolziert, zappelt.
 und dann hört man nichts mehr. die ganze scheiße ist ein ammenmärchen
 erzählt von einem idioten, voll von tobsucht und geschrei,
 und es bedeutet: nichts.
-
-(selbst übersetzt aus hamlet von william shakespeare. die anderen übersetzungen haben mir nicht gefallen.)
