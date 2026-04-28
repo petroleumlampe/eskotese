@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import RandomButton from '@/components/RandomButton'
 
 export default function Header() {
   const pathname = usePathname()
@@ -8,7 +9,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="site-title">
-        <Link href="/">eskotese!</Link>
+        <Link href="/">eskotese</Link>
       </div>
       <p className="site-subtitle">
         ich fuge worte zusammen, eine mauer entsteht.<br />
@@ -26,6 +27,8 @@ export default function Header() {
         <Link href="/ueber" className={`nav-link${pathname === '/ueber' ? ' active' : ''}`}>
           über
         </Link>
+        <span className="nav-sep">·</span>
+        <RandomButton />
       </nav>
     </header>
   )

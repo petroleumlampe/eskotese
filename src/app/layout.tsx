@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import { AuthProvider } from '@/context/AuthContext'
 
 export const metadata: Metadata = {
-  title: 'eskotese!',
+  title: 'eskotese',
   description: 'ich fuge worte zusammen, eine mauer entsteht.',
 }
 

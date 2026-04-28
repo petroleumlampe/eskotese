@@ -8,10 +8,19 @@ interface Props {
   text: Text
 }
 
-function formatDate(dateStr: string) {
-  if (!dateStr) return ''
+function StackedDate({ dateStr }: { dateStr: string }) {
+  if (!dateStr) return null
   const d = new Date(dateStr)
-  return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = String(d.getFullYear()).slice(-2)
+  return (
+    <div className="text-date-stacked">
+      <span>{day}</span>
+      <span>{month}</span>
+      <span>{year}</span>
+    </div>
+  )
 }
 
 export default function SingleTextContent({ text }: Props) {
@@ -36,9 +45,9 @@ export default function SingleTextContent({ text }: Props) {
         </div>
       )}
       <article>
-        <p className="text-date">{formatDate(text.date)}</p>
         <h2 className="text-title">{text.title}</h2>
         <div className="text-content">{text.content}</div>
+        <StackedDate dateStr={text.date} />
       </article>
       <Link href="/texte" className="back-link">← alle texte</Link>
     </div>
