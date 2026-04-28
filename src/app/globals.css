@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
 
 :root {
   --bg: #1a2e1a;
@@ -125,9 +125,10 @@ a:hover {
 
 /* Text display */
 .text-date {
-  font-family: 'Pinyon Script', cursive;
+  font-family: 'Lora', serif;
+  font-style: italic;
   color: var(--muted-dark);
-  font-size: 1rem;
+  font-size: 0.78rem;
   margin-bottom: 0.6rem;
 }
 
@@ -135,10 +136,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Pinyon Script', cursive;
+  font-family: 'Lora', serif;
+  font-style: italic;
   color: var(--muted-dark);
-  font-size: 1.2rem;
-  line-height: 1.5;
+  font-size: 0.88rem;
+  line-height: 1.7;
   margin-top: 2.5rem;
 }
 
@@ -182,10 +184,11 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  font-family: 'Pinyon Script', cursive;
+  font-family: 'Lora', serif;
+  font-style: italic;
   color: var(--muted-dark);
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 0.88rem;
+  line-height: 1.7;
   flex-shrink: 0;
 }
 
