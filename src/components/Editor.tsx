@@ -14,6 +14,7 @@ export default function Editor({ initialText }: Props) {
   const [content, setContent] = useState(initialText?.content || '')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [done, setDone] = useState(false)
 
   const handleSave = async () => {
     if (!title.trim() || !content.trim()) {
@@ -30,9 +31,14 @@ export default function Editor({ initialText }: Props) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, date, content }),
         })
-        if (!res.ok) throw new Error()
-        router.push(`/texte/${initialText.slug}`)
-        router.refresh()
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error)
+        if (data.pending) {
+          setDone(true)
+        } else {
+          router.push(`/texte/${initialText.slug}`)
+          router.refresh()
+        }
       } else {
         const res = await fetch('/api/admin/texte', {
           method: 'POST',
@@ -41,13 +47,28 @@ export default function Editor({ initialText }: Props) {
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.error)
-        router.push(`/texte/${data.slug}`)
-        router.refresh()
+        if (data.pending) {
+          setDone(true)
+        } else {
+          router.push(`/texte/${data.slug}`)
+          router.refresh()
+        }
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'etwas ist schiefgelaufen.')
-      setSaving(false)
     }
+    setSaving(false)
+  }
+
+  if (done) {
+    return (
+      <div className="editor-done">
+        <p>gespeichert. die seite aktualisiert sich in etwa einer minute.</p>
+        <button onClick={() => router.push('/texte')} className="btn-cancel" style={{ marginTop: '1.5rem' }}>
+          zu allen texten
+        </button>
+      </div>
+    )
   }
 
   return (

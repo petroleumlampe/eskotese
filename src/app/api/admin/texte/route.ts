@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
 import { slugify, saveText, textExists } from '@/lib/texte'
+import { githubSaveText, isGithubConfigured } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
   if (!await isAuthenticated()) {
@@ -8,19 +9,21 @@ export async function POST(request: NextRequest) {
   }
 
   const { title, date, content } = await request.json()
-
   if (!title?.trim() || !content?.trim()) {
     return NextResponse.json({ error: 'titel und text sind pflicht.' }, { status: 400 })
   }
 
-  const slug = slugify(title)
+  const base = slugify(title)
+  const slug = textExists(base) ? `${base}-${Date.now()}` : base
+  const finalDate = date || new Date().toISOString().split('T')[0]
 
-  if (textExists(slug)) {
-    const uniqueSlug = `${slug}-${Date.now()}`
-    saveText(uniqueSlug, title, date || new Date().toISOString().split('T')[0], content)
-    return NextResponse.json({ success: true, slug: uniqueSlug })
+  if (isGithubConfigured()) {
+    const fileContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${finalDate}"\n---\n${content}`
+    const ok = await githubSaveText(slug, fileContent)
+    if (!ok) return NextResponse.json({ error: 'Fehler beim Speichern auf GitHub.' }, { status: 500 })
+    return NextResponse.json({ success: true, slug, pending: true })
   }
 
-  saveText(slug, title, date || new Date().toISOString().split('T')[0], content)
-  return NextResponse.json({ success: true, slug })
+  saveText(slug, title, finalDate, content)
+  return NextResponse.json({ success: true, slug, pending: false })
 }
