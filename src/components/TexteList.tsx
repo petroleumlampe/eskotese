@@ -38,10 +38,19 @@ function getRandomWords(content: string, count: number): string {
   return weighted.slice(0, Math.min(count, weighted.length)).map(w => w.word).join(' ')
 }
 
-function formatDate(dateStr: string) {
-  if (!dateStr) return ''
+function StackedDate({ dateStr }: { dateStr: string }) {
+  if (!dateStr) return null
   const d = new Date(dateStr)
-  return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = String(d.getFullYear()).slice(-2)
+  return (
+    <div className="texte-item-date-stacked">
+      <span>{day}</span>
+      <span>{month}</span>
+      <span>{year}</span>
+    </div>
+  )
 }
 
 export default function TexteList({ texte }: Props) {
@@ -61,11 +70,13 @@ export default function TexteList({ texte }: Props) {
     <div className="texte-list">
       {texte.map(t => (
         <Link key={t.slug} href={`/texte/${t.slug}`} className="texte-item">
-          <p className="text-date">{formatDate(t.date)}</p>
-          <h2 className="texte-item-title">{t.title}</h2>
-          {previews[t.slug] && (
-            <p className="texte-item-preview">{previews[t.slug]}</p>
-          )}
+          <div className="texte-item-body">
+            <h2 className="texte-item-title">{t.title}</h2>
+            {previews[t.slug] && (
+              <p className="texte-item-preview">{previews[t.slug]}</p>
+            )}
+          </div>
+          <StackedDate dateStr={t.date} />
         </Link>
       ))}
     </div>

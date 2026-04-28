@@ -17,7 +17,7 @@ export default function Header() {
       </p>
       <nav className="site-nav">
         <Link href="/" className={`nav-link${pathname === '/' ? ' active' : ''}`}>
-          recent
+          neulich
         </Link>
         <span className="nav-sep">·</span>
         <Link href="/texte" className={`nav-link${pathname.startsWith('/texte') ? ' active' : ''}`}>
