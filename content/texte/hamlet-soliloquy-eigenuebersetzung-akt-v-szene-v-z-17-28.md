@@ -1,5 +1,5 @@
 ---
-title: "hamlet soliloquy eigenübersetzung (Akt V, Szene V, Z. 17-28)"
+title: "hamlet soliloquy eigenübersetzung (akt V, szene V, z. 17-28)"
 date: "2026-03-07"
 ---
 morgen und morgen und wieder morgen
