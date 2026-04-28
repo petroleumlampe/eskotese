@@ -2,10 +2,10 @@
 title: "leben lohnt"
 date: "2021-02-22"
 ---
-- finger knacken
-- Streichhölzer entflammen
-- Bettdecken ausschütteln
-- Der Sound schwerer Türen, die ins Schloss fallen
-- ein Auferstehungsgefühl nach einer kalten Dusche
-- Fruchtreste von Fingern lecken
-- der Fakt, das wir einen Bauchnabel haben
+- rückenknacken oder im brustkorb
+- streichhölzer entflammen
+- bettdecken ausschütteln
+- der sound schwerer türen, die ins schloss fallen
+- ein auferstehungsgefühl nach einer kalten dusche
+- fruchtreste von fingern lecken
+- der fakt, das wir einen bauchnabel haben
