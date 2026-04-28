@@ -7,15 +7,35 @@ interface Props {
   texte: Text[]
 }
 
+const STOPWORDS = new Set([
+  'das', 'die', 'der', 'des', 'dem', 'den',
+  'ein', 'eine', 'einer', 'einem', 'einen', 'eines',
+  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',
+  'und', 'oder', 'aber', 'doch', 'auch', 'noch',
+  'ist', 'bin', 'bist', 'war', 'hat', 'haben',
+  'nicht', 'kein', 'keine', 'mit', 'auf', 'in',
+  'an', 'zu', 'von', 'aus', 'bei', 'wie', 'als',
+  'so', 'dann', 'wenn', 'weil', 'dass', 'mir',
+])
+
+function getWeight(word: string): number {
+  const w = word.toLowerCase()
+  if (STOPWORDS.has(w)) return 0.33
+  if (word.length < 3) return 0.5
+  return 1.0
+}
+
 function getRandomWords(content: string, count: number): string {
   const words = content
     .replace(/[.,!?;:—–\-\n\r]/g, ' ')
     .split(/\s+/)
     .map(w => w.trim())
-    .filter(w => w.length > 2)
+    .filter(w => w.length > 0)
   if (words.length === 0) return ''
-  const shuffled = [...words].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, Math.min(count, shuffled.length)).join(' ')
+
+  const weighted = words.map(w => ({ word: w, sort: Math.random() * getWeight(w) }))
+  weighted.sort((a, b) => b.sort - a.sort)
+  return weighted.slice(0, Math.min(count, weighted.length)).map(w => w.word).join(' ')
 }
 
 function formatDate(dateStr: string) {
