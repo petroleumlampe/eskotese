@@ -2,31 +2,22 @@
 title: "eva"
 date: "2021-05-10"
 ---
-da ist Staub zwischen den Tasten
-eine Fliege im Wein
-Über grünen samt laufe ich
-In deine welt hinein
+da ist staub zwischen den tasten
+eine fliege im wein
+über grünen samt laufe ich
+in deine welt hinein
 
-Die Truhe mit den Noten
-Und im Rahmen da vorn
-Das Rendezvous der Freunde
-Du könntest zu ihn’ gehörn
+die truhe mit den noten
+und im rahmen da vorn
+das rendezvous der freunde
+du könntest zu ihn' gehör'n
 
-Wir im winter im Schnee
-Die bunten Tränen aus Wachs
-Doch mehr wind als flamme
-Und eine Kerze verblasst
+wir im winter im schnee
+die bunten tränen aus wachs
+doch mehr wind als flamme
+und eine kerze verblasst
 
-Wenn im sturm der Zeit
-Deine Linien verwehen
-Entknotet sich ein Rätsel und du beginnst zu sehen
-
-da ist Staub zwischen den Tasten
-eine Fliege im Wein
-Über grünen samt laufe ich
-In deine welt hinein
-
-alleine auf dem Flur
-wolltest du gehn
-und wo der Staub liegt
-kann ich dich verstehn
+wenn im sturm der zeit
+deine linien verwehen
+entknotet sich ein rätsel 
+und du beginnst zu sehen
