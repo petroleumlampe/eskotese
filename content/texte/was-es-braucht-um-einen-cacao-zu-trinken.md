@@ -2,6 +2,8 @@
 title: "was es braucht, um einen cacao zu trinken"
 date: "2026-05-02"
 ---
+was es braucht um einen cacao zu trinken
+
 was man braucht, einen cacao zu trinken:
 zuerst braucht es raum: etwas, in dem etwas erst etwas sein kann. dann nehme man einen riesenhaften klumpen stein, finde einen ort für ihn und rotiere ihn um eine achse von 23 grad. so gibt es einen ankerort im großen etwas. und die jahreszeiten gleich dazu. (das ist für den anfang nicht wenig.)
 die kraft des cacao wird in bohnenform sein. sie kommt in ihn aus wellen aus licht (licht ist hell, licht lässt uns sehen & licht bleibt ein rätsel), die wiederum von einem monströsen lagerfeuerball kommen, der sich selber speist. man muss kein holz nachlegen. niemand hat ihn angezündet.
@@ -13,6 +15,7 @@ es braucht noch erde, die nicht zu feucht oder trocken ist. und die besteht aus 
 und dann braucht es hände. das sind so geräte mit stäben dran. mit denen kann man fast alles machen. und mit der frucht des cacao machen die etwas, das haben wir ernten genannt. 
 die hände haben auch menschen dran, die das machen, weil sie etwas zu essen brauchen. und das ist knifflig, denn einige menschen sagten: dieser teil unserer kugel ist mein. von hier darfst du nicht essen. aber gibst du mir etwas, dann gebe ich dir auch. 
 und manche haben eben land, von dem sie dinge nehmen können und manche haben nur ihre hände. und so müssen sie eintauschen, was die hände können, denn die haben sie zumindest: ernten, schneiden, greifen, streicheln, pflücken.
-und das passiert, von hier aus gesehen, auf der anderen seite dieser riesigen kreisenden kugel. die kugel, die all das hat. licht, wasser, hände, erde, blüten, schiffe, stoffe, tassen, münder, körbe, herzen, flecken, stacheln.
-dann gibt es eine nase, die das riecht, und sagen tut der mund: lecker. worauf dinge passieren, die wir fließen nennen und schlucken und wärme im bauch. und dann peristaltik und enddarm und vasodilatation und rezeptorenfeuer und genuss. und vielleicht sogar gefühle. doch die sprengen manchmal schon das, was wir mensch nennen. und damit sicher auch dies hier, was ein text ist.
+und das passiert, von hier aus gesehen, auf der anderen seite dieser riesigen kreisenden kugel. die kugel, die all das hat. licht, wasser, hände, erde, blüten, schiffe, stoffe, tassen, münder, körbe, herzen, flecken, stacheln, feuer.
+jemand hat einst die sonne vom himmel geholt, hat es geschafft sie zu zähmen, und so können wir licht und wärme machen. und heute wollen wir das, denn so schmeckt cacao besser im mund im mensch im kontinent im kosmos.
+dann gibt es eine nase, die das riecht, und sagen tut der schmeckende mund: lecker. worauf dinge passieren, die wir fließen nennen und schlucken und wärme im bauch. und dann peristaltik und enddarm und vasodilatation und rezeptorenfeuer und genuss. und vielleicht sogar gefühle. doch die sprengen manchmal schon das, was wir mensch nennen. und damit sicher auch dies hier, was ein text ist.
 dies war die geschichte davon, was es braucht, einen cacao zu trinken. man braucht eigentlich alles.​​​​​​​​​​​​​​​​
