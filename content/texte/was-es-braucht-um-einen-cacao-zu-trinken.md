@@ -2,9 +2,6 @@
 title: "was es braucht, um einen cacao zu trinken"
 date: "2026-05-02"
 ---
-was es braucht um einen cacao zu trinken
-
-was man braucht, einen cacao zu trinken:
 zuerst braucht es raum: etwas, in dem etwas erst etwas sein kann. dann nehme man einen riesenhaften klumpen stein, finde einen ort für ihn und rotiere ihn um eine achse von 23 grad. so gibt es einen ankerort im großen etwas. und die jahreszeiten gleich dazu. (das ist für den anfang nicht wenig.)
 die kraft des cacao wird in bohnenform sein. sie kommt in ihn aus wellen aus licht (licht ist hell, licht lässt uns sehen & licht bleibt ein rätsel), die wiederum von einem monströsen lagerfeuerball kommen, der sich selber speist. man muss kein holz nachlegen. niemand hat ihn angezündet.
 erst werden wir sagen: das ist gott. gott kommt wieder. jeden tag. dann werden wir sagen: sonne.
