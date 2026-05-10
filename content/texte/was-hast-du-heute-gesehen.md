@@ -13,4 +13,4 @@ wie sich jemand die zigarette an der herdplatte ansteckt.
 jazz zu babystimmen auf küchengeräten.
 einen doppelten regenbogen über den niagrafällen.
 eine pyramide auf dem mars.
-und all dies im hochformat.
+und all das im hochformat.
