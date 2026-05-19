@@ -1,6 +1,11 @@
 const TOKEN = process.env.GITHUB_TOKEN
 const OWNER = process.env.GITHUB_OWNER
 const REPO = process.env.GITHUB_REPO || 'eskotese'
+const DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK_URL
+
+export async function triggerDeploy() {
+  if (DEPLOY_HOOK) await fetch(DEPLOY_HOOK, { method: 'POST' }).catch(() => null)
+}
 
 function ghFetch(path: string, options: RequestInit = {}) {
   return fetch(`https://api.github.com${path}`, {
@@ -14,11 +19,14 @@ function ghFetch(path: string, options: RequestInit = {}) {
   })
 }
 
-async function getFileSha(slug: string): Promise<string | null> {
+async function getFileSha(slug: string): Promise<{ sha: string | null; status: number; message?: string }> {
   const res = await ghFetch(`/repos/${OWNER}/${REPO}/contents/content/texte/${slug}.md`)
-  if (!res.ok) return null
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    return { sha: null, status: res.status, message: body.message }
+  }
   const data = await res.json()
-  return data.sha ?? null
+  return { sha: data.sha ?? null, status: 200 }
 }
 
 export function isGithubConfigured(): boolean {
@@ -26,7 +34,7 @@ export function isGithubConfigured(): boolean {
 }
 
 export async function githubSaveText(slug: string, fileContent: string): Promise<boolean> {
-  const sha = await getFileSha(slug)
+  const { sha } = await getFileSha(slug)
   const body: Record<string, unknown> = {
     message: sha ? `update: ${slug}` : `add: ${slug}`,
     content: Buffer.from(fileContent, 'utf-8').toString('base64'),
@@ -40,9 +48,9 @@ export async function githubSaveText(slug: string, fileContent: string): Promise
   return res.ok
 }
 
-export async function githubDeleteText(slug: string): Promise<boolean> {
-  const sha = await getFileSha(slug)
-  if (!sha) return false
+export async function githubDeleteText(slug: string): Promise<{ ok: boolean; error?: string }> {
+  const { sha, status, message } = await getFileSha(slug)
+  if (!sha) return { ok: false, error: `GitHub ${status}: ${message ?? 'Datei nicht gefunden'} (${OWNER}/${REPO}/content/texte/${slug}.md)` }
 
   const res = await ghFetch(
     `/repos/${OWNER}/${REPO}/contents/content/texte/${slug}.md`,
@@ -51,5 +59,7 @@ export async function githubDeleteText(slug: string): Promise<boolean> {
       body: JSON.stringify({ message: `delete: ${slug}`, sha }),
     }
   )
-  return res.ok
+  if (res.ok) return { ok: true }
+  const body = await res.json().catch(() => ({}))
+  return { ok: false, error: `GitHub ${res.status}: ${body.message ?? 'unbekannter Fehler'}` }
 }

@@ -27,7 +27,9 @@ function getWeight(word: string): number {
 
 function getRandomWords(content: string, count: number): string {
   const words = content
-    .replace(/[.,!?;:—–\-\n\r]/g, ' ')
+    .replace(/([a-zäöüßA-ZÄÖÜ])\*[a-zäöüßA-ZÄÖÜ]*/g, '$1')
+    .replace(/([a-zäöüßA-ZÄÖÜ])[_:][a-zäöüßA-ZÄÖÜ]+/g, '$1')
+    .replace(/[.,!?;:—–\-()\[\]\n\r]/g, ' ')
     .split(/\s+/)
     .map(w => w.trim())
     .filter(w => w.length > 0)

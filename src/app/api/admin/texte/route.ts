@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
 import { slugify, saveText, textExists } from '@/lib/texte'
-import { githubSaveText, isGithubConfigured } from '@/lib/github'
+import { githubSaveText, isGithubConfigured, triggerDeploy } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
   if (!await isAuthenticated()) {
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
     const fileContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${finalDate}"\n---\n${content}`
     const ok = await githubSaveText(slug, fileContent)
     if (!ok) return NextResponse.json({ error: 'Fehler beim Speichern auf GitHub.' }, { status: 500 })
+    triggerDeploy()
     return NextResponse.json({ success: true, slug, pending: true })
   }
 

@@ -33,6 +33,9 @@ export default function SingleTextContent({ text }: Props) {
     if (res.ok) {
       router.push('/texte')
       router.refresh()
+    } else {
+      const data = await res.json().catch(() => ({}))
+      alert(`Fehler beim Löschen: ${data.error ?? res.status}`)
     }
   }
 

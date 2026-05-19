@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAuthenticated } from '@/lib/auth'
 import { saveText, deleteText, textExists } from '@/lib/texte'
-import { githubSaveText, githubDeleteText, isGithubConfigured } from '@/lib/github'
+import { githubSaveText, githubDeleteText, isGithubConfigured, triggerDeploy } from '@/lib/github'
 
 interface Params { params: Promise<{ slug: string }> }
 
@@ -20,6 +20,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     const fileContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${date}"\n---\n${content}`
     const ok = await githubSaveText(slug, fileContent)
     if (!ok) return NextResponse.json({ error: 'Fehler beim Speichern auf GitHub.' }, { status: 500 })
+    triggerDeploy()
     return NextResponse.json({ success: true, pending: true })
   }
 
@@ -38,8 +39,9 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
   const { slug } = await params
 
   if (isGithubConfigured()) {
-    const ok = await githubDeleteText(slug)
-    if (!ok) return NextResponse.json({ error: 'Fehler beim Löschen auf GitHub.' }, { status: 500 })
+    const result = await githubDeleteText(slug)
+    if (!result.ok) return NextResponse.json({ error: result.error ?? 'Fehler beim Löschen auf GitHub.' }, { status: 500 })
+    triggerDeploy()
     return NextResponse.json({ success: true })
   }
 
