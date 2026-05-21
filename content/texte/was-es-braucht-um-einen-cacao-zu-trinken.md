@@ -15,4 +15,4 @@ und manche haben eben land, von dem sie dinge nehmen können und manche haben nu
 und das passiert, von hier aus gesehen, auf der anderen seite dieser riesigen kreisenden kugel. die kugel, die all das hat. licht, wasser, hände, erde, blüten, schiffe, stoffe, tassen, münder, körbe, herzen, flecken, stacheln, feuer.
 jemand hat einst die sonne vom himmel geholt, hat es geschafft sie zu zähmen, und so können wir licht und wärme machen. und heute wollen wir das, denn so schmeckt cacao besser im mund im mensch im kontinent im kosmos.
 dann gibt es eine nase, die das riecht, und sagen tut der schmeckende mund: lecker. worauf dinge passieren, die wir fließen nennen und schlucken und wärme im bauch. und dann peristaltik und enddarm und vasodilatation und rezeptorenfeuer und genuss. und vielleicht sogar gefühle. doch die sprengen manchmal schon das, was wir mensch nennen. und damit sicher auch dies hier, was ein text ist.
-dies war die geschichte davon, was es braucht, einen cacao zu trinken. man braucht eigentlich alles.​​​​​​​​​​​​​​​​
+dies war die geschichte davon, was es braucht, einen cacao zu trinken. es braucht eigentlich alles.​​​​​​​​​​​​​​​​
