@@ -28,6 +28,10 @@ export default function Header() {
           über
         </Link>
         <span className="nav-sep">·</span>
+        <Link href="/gedicht" className={`nav-link${pathname === '/gedicht' ? ' active' : ''}`}>
+          worte
+        </Link>
+        <span className="nav-sep">·</span>
         <RandomButton />
       </nav>
     </header>

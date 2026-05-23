@@ -252,6 +252,14 @@ a:hover {
   max-width: 520px;
 }
 
+.ueber-text p {
+  margin-bottom: 1.5rem;
+}
+
+.ueber-text p:last-child {
+  margin-bottom: 0;
+}
+
 .ueber-signature {
   margin-top: 1.5rem;
   color: var(--yellow);
@@ -301,6 +309,57 @@ a:hover {
 
 .logout-btn:hover {
   color: var(--yellow-dim);
+}
+
+/* Gedicht page */
+.gedicht-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 40vh;
+  gap: 2rem;
+}
+
+.gedicht-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.gedicht-line {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 0;
+}
+
+.gedicht-loading {
+  color: var(--muted);
+  letter-spacing: 0.3em;
+  font-size: 1rem;
+}
+
+.gedicht-neu-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  padding: 0;
+  text-align: left;
+  transition: color 0.2s;
+  width: fit-content;
+}
+
+.gedicht-neu-btn:hover {
+  color: var(--yellow-dim);
+}
+
+.gedicht-neu-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 /* Modal */
