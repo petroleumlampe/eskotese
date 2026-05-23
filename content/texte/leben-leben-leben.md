@@ -14,9 +14,7 @@ doch ambitioniert sein,
 bin nicht sicher, ob ich mich darin fließen lassen soll, was kommt,
 oder aktiv mehr formguss meiner tageskräfte praktizieren und gestalten will.
 
-so langsam und sicher legt sich da etwas frei in mir, was wirklich wirklich wirklich gespürt werden will
-und dazu noch die fähigkeit und last, was auch immer kommt stark und mich überrollend zu fühlen,
-die radikalität und heftigkeit des Lebens. wenn man einmal innehält, tief greift, existenziell ungeschützt merkt, was das – die tragweite einer unserer existenz – bedeutet: 
+so langsam und sicher legt sich da etwas frei in mir, was wirklich wirklich wirklich gespürt werden will und dazu noch die fähigkeit und last, was auch immer kommt stark und mich überrollend zu fühlen, die radikalität und heftigkeit des Lebens. wenn man einmal innehält, tief greift, existenziell ungeschützt merkt, was das – die tragweite einer unserer existenz – bedeutet: 
 so viel.
 
 ein wort ist ein kleiner container und kann dafür brechend voll viel tragen, aber dieser strom Leben reißt nicht ab. beim beladen geht etwas verloren, beim aufsaugen auch,
