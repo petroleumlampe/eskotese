@@ -10,7 +10,7 @@ die blanken hausfassaden der vorstadt, lauwarmes familientreiben hinter dem gekl
 
 nicht alles war schlecht und nicht alles war gut, doch der erbarmungslose asphalt kalt, nachdem ich niedergetreten unter wissenden augen kauerte.
 
-nuschelde worte in der nacht, der unterton ein barsches zischen. der moment, in dem man aufwacht, um dem alptraum zu entwischen, ließ unerbittlich auf sich warten, sodass mir auf dem harten kalt die wahrheit ins gesicht spuckte und sich beim weggehen nicht mal umguckte.
+nuschelnde worte in der nacht, der unterton ein barsches zischen. der moment, in dem man aufwacht, um dem alptraum zu entwischen, ließ unerbittlich auf sich warten, sodass mir auf dem harten kalt die wahrheit ins gesicht spuckte und sich beim weggehen nicht mal umguckte.
 
 die teile meines egos lagen zersprungen in der luft, wurden beharrlich weggetragen von einem zartbitteren duft. drei scheiben streiften das innere warme. heute: eine verkrustete narbe auf der hornhaut meiner seele.
 
