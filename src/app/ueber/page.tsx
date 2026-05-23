@@ -11,6 +11,9 @@ export default function UeberPage() {
     <div className="ueber-page">
       <div className="ueber-text">
         <p>
+          hell und lodernd brennt die fackel – sie zögert nicht: wo sie ist, wird licht
+        </p>
+        <p>
           hier werden texte in form gegossen! mein traum ist ein buch zu schreiben,
           aber nur, damit das cover schön sein kann. kleinschreiben ist rebellion, natürlich.
         </p>
