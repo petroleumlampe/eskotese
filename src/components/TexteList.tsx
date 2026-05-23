@@ -35,7 +35,8 @@ function getRandomWords(content: string, count: number): string {
     .filter(w => w.length > 0)
   if (words.length === 0) return ''
 
-  const weighted = words.map(w => ({ word: w, sort: Math.random() * getWeight(w) }))
+  const unique = [...new Set(words)]
+  const weighted = unique.map(w => ({ word: w, sort: Math.random() * getWeight(w) }))
   weighted.sort((a, b) => b.sort - a.sort)
   return weighted.slice(0, Math.min(count, weighted.length)).map(w => w.word).join(' ')
 }
