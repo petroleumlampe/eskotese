@@ -11,7 +11,8 @@ zeit und essen habe.
 
 ich will mit meinen fingern essen,
 schamlos in obst beißen dass
-es mir dick und saftig klebrig an den wangen bleibt
+es mir dick und saftig
+klebrig an den wangen bleibt
 
 ich möchte alles in seiner fülle tun, ganz aufgehen
 in jedem Z, dass ich aufs blatt bewege,
