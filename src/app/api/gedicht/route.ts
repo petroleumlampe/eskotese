@@ -27,6 +27,7 @@ function tokenize(text: string): string[] {
 function buildMarkov(texts: string[]): {
   bigrams: Map<string, string[]>
   starters: string[]
+  wordPool: string[]
 } {
   const bigrams = new Map<string, string[]>()
   const freq = new Map<string, number>()
@@ -38,6 +39,11 @@ function buildMarkov(texts: string[]): {
       const words = tokenize(line)
       if (words.length === 0) continue
 
+      // Track ALL tokens for frequency (including last word of each line)
+      for (const w of words) {
+        freq.set(w, (freq.get(w) ?? 0) + 1)
+      }
+
       if (!STOPWORDS.has(words[0]) && words[0].length >= 3) {
         rawStarters.push(words[0])
       }
@@ -47,20 +53,34 @@ function buildMarkov(texts: string[]): {
         const next = words[i + 1]
         if (!bigrams.has(cur)) bigrams.set(cur, [])
         bigrams.get(cur)!.push(next)
-        freq.set(cur, (freq.get(cur) ?? 0) + 1)
       }
     }
   }
 
-  // Weight rare starters more heavily (inverse frequency)
+  // starters: line-starting words, inverse-frequency weighted
   const starters: string[] = []
+  const seenStarters = new Set<string>()
   for (const w of rawStarters) {
-    const count = freq.get(w) ?? 1
-    const weight = count <= 2 ? 3 : 1
-    for (let i = 0; i < weight; i++) starters.push(w)
+    // Deduplicate: each unique starter appears at most once in rawStarters loop
+    // but weight it by inverse corpus frequency
+    if (!seenStarters.has(w)) {
+      seenStarters.add(w)
+      const count = freq.get(w) ?? 1
+      const weight = count <= 2 ? 3 : count <= 5 ? 2 : 1
+      for (let i = 0; i < weight; i++) starters.push(w)
+    }
   }
 
-  return { bigrams, starters }
+  // wordPool: ALL non-stopwords with length >= 3, inverse-frequency weighted
+  // This includes words that only appear at line endings (never bigram keys)
+  const wordPool: string[] = []
+  for (const [w, count] of freq.entries()) {
+    if (STOPWORDS.has(w) || w.length < 3) continue
+    const weight = count <= 2 ? 3 : count <= 5 ? 2 : 1
+    for (let i = 0; i < weight; i++) wordPool.push(w)
+  }
+
+  return { bigrams, starters, wordPool }
 }
 
 function pick<T>(arr: T[]): T {
@@ -94,14 +114,14 @@ function pickUnused(candidates: string[], lineUsed: Set<string>, globalUsed: Set
 function generateLine(
   bigrams: Map<string, string[]>,
   starters: string[],
-  allWords: string[],
+  wordPool: string[],
   length: number,
   globalUsed: Set<string>
 ): string {
-  const pool = starters.length > 0 ? starters : allWords.filter(w => !STOPWORDS.has(w) && w.length >= 3)
   const lineUsed = new Set<string>()
 
-  const first = pickUnused(pool.length > 0 ? pool : allWords, lineUsed, globalUsed, allWords)
+  // Line start: from starters (line-beginning words from source)
+  const first = pickUnused(starters.length > 0 ? starters : wordPool, lineUsed, globalUsed, wordPool)
   lineUsed.add(first)
   if (!STOPWORDS.has(first)) globalUsed.add(first)
   const words: string[] = [first]
@@ -111,9 +131,11 @@ function generateLine(
     const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
     let next: string
     if (candidates && candidates.length > 0) {
-      next = pickUnused(candidates, lineUsed, globalUsed, allWords)
+      // Follow bigram chain
+      next = pickUnused(candidates, lineUsed, globalUsed, wordPool)
     } else {
-      next = pickUnused(pool.length > 0 ? pool : allWords, lineUsed, globalUsed, allWords)
+      // Random jump: use full wordPool so ALL corpus words are reachable
+      next = pickUnused(wordPool, lineUsed, globalUsed, wordPool)
     }
     lineUsed.add(next)
     if (!STOPWORDS.has(next)) globalUsed.add(next)
@@ -130,16 +152,15 @@ export async function GET() {
   }
 
   const contents = texte.map(t => t.content)
-  const { bigrams, starters } = buildMarkov(contents)
-  const allWords = Array.from(bigrams.keys())
+  const { bigrams, starters, wordPool } = buildMarkov(contents)
 
-  if (allWords.length < 5) {
+  if (wordPool.length < 5) {
     return NextResponse.json({ lines: ['zu wenig worte'] })
   }
 
   const globalUsed = new Set<string>()
   const lines = Array.from({ length: 4 }, () =>
-    generateLine(bigrams, starters, allWords, pickLineLength(), globalUsed)
+    generateLine(bigrams, starters, wordPool, pickLineLength(), globalUsed)
   )
 
   return NextResponse.json({ lines })
