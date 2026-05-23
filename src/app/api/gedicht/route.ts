@@ -127,7 +127,7 @@ function generateLine(
   const words: string[] = [first]
 
   for (let i = 1; i < length; i++) {
-    const jump = Math.random() < 0.4
+    const jump = Math.random() < 0.7
     const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
     let next: string
     if (candidates && candidates.length > 0) {

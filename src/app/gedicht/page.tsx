@@ -21,7 +21,7 @@ export default function GedichtPage() {
 
   return (
     <div className="gedicht-page">
-      <p className="gedicht-subtitle">neukomposition von hier hochgeladenen worten</p>
+      <p className="gedicht-subtitle">zufällige neukomposition von hier hochgeladenen worten</p>
       <div className="gedicht-lines">
         {loading ? (
           <span className="gedicht-loading">·  ·  ·</span>
