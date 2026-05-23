@@ -103,14 +103,21 @@ const PUNCT_STANDALONE = ['&', '–']
 const ALL_PUNCT = [...PUNCT_ATTACHED, ...PUNCT_STANDALONE]
 
 function addPunctuation(words: string[]): string {
-  if (words.length < 2 || Math.random() >= 0.20) return words.join(' ')
-  const gapIndex = Math.floor(Math.random() * (words.length - 1))
-  const p = ALL_PUNCT[Math.floor(Math.random() * ALL_PUNCT.length)]
+  if (words.length < 2) return words.join(' ')
   const result = [...words]
-  if (PUNCT_ATTACHED.includes(p)) {
-    result[gapIndex] = result[gapIndex] + p
-  } else {
-    result.splice(gapIndex + 1, 0, p)
+  const inserts: { pos: number; punct: string }[] = []
+  for (let i = 0; i < result.length - 1; i++) {
+    if (Math.random() < 0.22) {
+      inserts.push({ pos: i, punct: ALL_PUNCT[Math.floor(Math.random() * ALL_PUNCT.length)] })
+    }
+  }
+  for (let j = inserts.length - 1; j >= 0; j--) {
+    const { pos, punct } = inserts[j]
+    if (PUNCT_ATTACHED.includes(punct)) {
+      result[pos] = result[pos] + punct
+    } else {
+      result.splice(pos + 1, 0, punct)
+    }
   }
   return result.join(' ')
 }
@@ -177,7 +184,7 @@ export async function GET() {
   }
 
   const globalUsed = new Set<string>()
-  const parensIndex = Math.random() < 0.12 ? Math.floor(Math.random() * 4) : -1
+  const parensIndex = Math.random() < 0.05 ? Math.floor(Math.random() * 4) : -1
   const lines = Array.from({ length: 4 }, (_, i) =>
     generateLine(bigrams, starters, wordPool, pickLineLength(), globalUsed, i === parensIndex)
   )
