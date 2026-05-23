@@ -87,13 +87,32 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-// Weighted: 3→5%, 4→25%, 5→50%, 6→20%
+// Weighted: 1→2%, 2→5%, 3→6%, 4→22%, 5→44%, 6→21%
 function pickLineLength(): number {
   const r = Math.random()
-  if (r < 0.05) return 3
-  if (r < 0.30) return 4
-  if (r < 0.80) return 5
+  if (r < 0.02) return 1
+  if (r < 0.07) return 2
+  if (r < 0.13) return 3
+  if (r < 0.35) return 4
+  if (r < 0.79) return 5
   return 6
+}
+
+const PUNCT_ATTACHED = ['.', ',', '!', '?']
+const PUNCT_STANDALONE = ['&', '–']
+const ALL_PUNCT = [...PUNCT_ATTACHED, ...PUNCT_STANDALONE]
+
+function addPunctuation(words: string[]): string {
+  if (words.length < 2 || Math.random() >= 0.20) return words.join(' ')
+  const gapIndex = Math.floor(Math.random() * (words.length - 1))
+  const p = ALL_PUNCT[Math.floor(Math.random() * ALL_PUNCT.length)]
+  const result = [...words]
+  if (PUNCT_ATTACHED.includes(p)) {
+    result[gapIndex] = result[gapIndex] + p
+  } else {
+    result.splice(gapIndex + 1, 0, p)
+  }
+  return result.join(' ')
 }
 
 function isFree(w: string, lineUsed: Set<string>, globalUsed: Set<string>): boolean {
@@ -116,11 +135,11 @@ function generateLine(
   starters: string[],
   wordPool: string[],
   length: number,
-  globalUsed: Set<string>
+  globalUsed: Set<string>,
+  useParens: boolean
 ): string {
   const lineUsed = new Set<string>()
 
-  // Line start: from starters (line-beginning words from source)
   const first = pickUnused(starters.length > 0 ? starters : wordPool, lineUsed, globalUsed, wordPool)
   lineUsed.add(first)
   if (!STOPWORDS.has(first)) globalUsed.add(first)
@@ -131,10 +150,8 @@ function generateLine(
     const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
     let next: string
     if (candidates && candidates.length > 0) {
-      // Follow bigram chain
       next = pickUnused(candidates, lineUsed, globalUsed, wordPool)
     } else {
-      // Random jump: use full wordPool so ALL corpus words are reachable
       next = pickUnused(wordPool, lineUsed, globalUsed, wordPool)
     }
     lineUsed.add(next)
@@ -142,7 +159,8 @@ function generateLine(
     words.push(next)
   }
 
-  return words.join(' ')
+  const line = addPunctuation(words)
+  return useParens ? `(${line})` : line
 }
 
 export async function GET() {
@@ -159,8 +177,9 @@ export async function GET() {
   }
 
   const globalUsed = new Set<string>()
-  const lines = Array.from({ length: 4 }, () =>
-    generateLine(bigrams, starters, wordPool, pickLineLength(), globalUsed)
+  const parensIndex = Math.random() < 0.12 ? Math.floor(Math.random() * 4) : -1
+  const lines = Array.from({ length: 4 }, (_, i) =>
+    generateLine(bigrams, starters, wordPool, pickLineLength(), globalUsed, i === parensIndex)
   )
 
   return NextResponse.json({ lines })
