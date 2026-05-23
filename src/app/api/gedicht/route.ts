@@ -76,12 +76,18 @@ function pickLineLength(): number {
   return 6
 }
 
-function pickUnused<T extends string>(candidates: T[], used: Set<string>, fallback: T[]): T {
-  for (let i = 0; i < 8; i++) {
+function isFree(w: string, lineUsed: Set<string>, globalUsed: Set<string>): boolean {
+  if (lineUsed.has(w)) return false
+  if (STOPWORDS.has(w)) return true
+  return !globalUsed.has(w)
+}
+
+function pickUnused(candidates: string[], lineUsed: Set<string>, globalUsed: Set<string>, fallback: string[]): string {
+  for (let i = 0; i < 12; i++) {
     const w = pick(candidates)
-    if (!used.has(w)) return w
+    if (isFree(w, lineUsed, globalUsed)) return w
   }
-  const fresh = (fallback as T[]).filter(w => !used.has(w))
+  const fresh = fallback.filter(w => isFree(w, lineUsed, globalUsed))
   return fresh.length > 0 ? pick(fresh) : pick(candidates)
 }
 
@@ -89,13 +95,15 @@ function generateLine(
   bigrams: Map<string, string[]>,
   starters: string[],
   allWords: string[],
-  length: number
+  length: number,
+  globalUsed: Set<string>
 ): string {
   const pool = starters.length > 0 ? starters : allWords.filter(w => !STOPWORDS.has(w) && w.length >= 3)
-  const used = new Set<string>()
+  const lineUsed = new Set<string>()
 
-  const first = pickUnused(pool.length > 0 ? pool : allWords, used, allWords)
-  used.add(first)
+  const first = pickUnused(pool.length > 0 ? pool : allWords, lineUsed, globalUsed, allWords)
+  lineUsed.add(first)
+  if (!STOPWORDS.has(first)) globalUsed.add(first)
   const words: string[] = [first]
 
   for (let i = 1; i < length; i++) {
@@ -103,11 +111,12 @@ function generateLine(
     const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
     let next: string
     if (candidates && candidates.length > 0) {
-      next = pickUnused(candidates, used, allWords)
+      next = pickUnused(candidates, lineUsed, globalUsed, allWords)
     } else {
-      next = pickUnused(pool.length > 0 ? pool : allWords, used, allWords)
+      next = pickUnused(pool.length > 0 ? pool : allWords, lineUsed, globalUsed, allWords)
     }
-    used.add(next)
+    lineUsed.add(next)
+    if (!STOPWORDS.has(next)) globalUsed.add(next)
     words.push(next)
   }
 
@@ -128,8 +137,9 @@ export async function GET() {
     return NextResponse.json({ lines: ['zu wenig worte'] })
   }
 
+  const globalUsed = new Set<string>()
   const lines = Array.from({ length: 4 }, () =>
-    generateLine(bigrams, starters, allWords, pickLineLength())
+    generateLine(bigrams, starters, allWords, pickLineLength(), globalUsed)
   )
 
   return NextResponse.json({ lines })
