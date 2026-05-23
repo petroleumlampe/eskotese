@@ -87,14 +87,14 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-// Weighted: 1→2%, 2→5%, 3→6%, 4→22%, 5→44%, 6→21%
+// Weighted: 1→5%, 2→8%, 3→7%, 4→20%, 5→40%, 6→20%
 function pickLineLength(): number {
   const r = Math.random()
-  if (r < 0.02) return 1
-  if (r < 0.07) return 2
-  if (r < 0.13) return 3
-  if (r < 0.35) return 4
-  if (r < 0.79) return 5
+  if (r < 0.05) return 1
+  if (r < 0.13) return 2
+  if (r < 0.20) return 3
+  if (r < 0.40) return 4
+  if (r < 0.80) return 5
   return 6
 }
 
