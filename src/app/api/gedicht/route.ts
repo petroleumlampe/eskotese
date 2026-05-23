@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server'
 import { getAllTexte } from '@/lib/texte'
 
@@ -63,7 +65,8 @@ function generateLine(
   const words: string[] = [pick(pool.length > 0 ? pool : allWords)]
 
   for (let i = 1; i < length; i++) {
-    const next = bigrams.get(words[words.length - 1])
+    const jump = Math.random() < 0.4
+    const next = !jump ? bigrams.get(words[words.length - 1]) : undefined
     if (next && next.length > 0) {
       words.push(pick(next))
     } else {

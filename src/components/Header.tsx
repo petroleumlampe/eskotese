@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import RandomButton from '@/components/RandomButton'
+import WorteButton from '@/components/WorteButton'
 
 export default function Header() {
   const pathname = usePathname()
@@ -28,9 +29,7 @@ export default function Header() {
           über
         </Link>
         <span className="nav-sep">·</span>
-        <Link href="/gedicht" className={`nav-link${pathname === '/gedicht' ? ' active' : ''}`}>
-          worte
-        </Link>
+        <WorteButton />
         <span className="nav-sep">·</span>
         <RandomButton />
       </nav>

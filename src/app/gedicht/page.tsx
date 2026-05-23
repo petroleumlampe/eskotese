@@ -7,16 +7,21 @@ export default function GedichtPage() {
 
   const generate = useCallback(async () => {
     setLoading(true)
-    const res = await fetch('/api/gedicht')
+    const res = await fetch('/api/gedicht', { cache: 'no-store' })
     const data = await res.json()
     setLines(data.lines ?? [])
     setLoading(false)
   }, [])
 
-  useEffect(() => { generate() }, [generate])
+  useEffect(() => {
+    generate()
+    window.addEventListener('gedicht-refresh', generate)
+    return () => window.removeEventListener('gedicht-refresh', generate)
+  }, [generate])
 
   return (
     <div className="gedicht-page">
+      <p className="gedicht-subtitle">neukomposition von hier hochgeladenen worten</p>
       <div className="gedicht-lines">
         {loading ? (
           <span className="gedicht-loading">·  ·  ·</span>
@@ -26,13 +31,6 @@ export default function GedichtPage() {
           ))
         )}
       </div>
-      <button
-        className="gedicht-neu-btn"
-        onClick={generate}
-        disabled={loading}
-      >
-        neu
-      </button>
     </div>
   )
 }

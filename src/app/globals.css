@@ -333,6 +333,14 @@ a:hover {
   margin: 0;
 }
 
+.gedicht-subtitle {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+}
+
 .gedicht-loading {
   color: var(--muted);
   letter-spacing: 0.3em;
