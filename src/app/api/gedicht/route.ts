@@ -106,9 +106,11 @@ function addPunctuation(words: string[]): string {
   if (words.length < 2) return words.join(' ')
   const result = [...words]
   const inserts: { pos: number; punct: string }[] = []
+  let lastPunctPos = -2
   for (let i = 0; i < result.length - 1; i++) {
-    if (Math.random() < 0.22) {
+    if (i > lastPunctPos + 1 && Math.random() < 0.22) {
       inserts.push({ pos: i, punct: ALL_PUNCT[Math.floor(Math.random() * ALL_PUNCT.length)] })
+      lastPunctPos = i
     }
   }
   for (let j = inserts.length - 1; j >= 0; j--) {
@@ -153,7 +155,7 @@ function generateLine(
   const words: string[] = [first]
 
   for (let i = 1; i < length; i++) {
-    const jump = Math.random() < 0.7
+    const jump = Math.random() < 0.6
     const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
     let next: string
     if (candidates && candidates.length > 0) {
