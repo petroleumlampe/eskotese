@@ -29,7 +29,8 @@ function buildMarkov(texts: string[]): {
   starters: string[]
 } {
   const bigrams = new Map<string, string[]>()
-  const starters: string[] = []
+  const freq = new Map<string, number>()
+  const rawStarters: string[] = []
 
   for (const text of texts) {
     const lines = text.split(/\n+/)
@@ -37,15 +38,26 @@ function buildMarkov(texts: string[]): {
       const words = tokenize(line)
       if (words.length === 0) continue
 
-      if (!STOPWORDS.has(words[0])) starters.push(words[0])
+      if (!STOPWORDS.has(words[0]) && words[0].length >= 3) {
+        rawStarters.push(words[0])
+      }
 
       for (let i = 0; i < words.length - 1; i++) {
         const cur = words[i]
         const next = words[i + 1]
         if (!bigrams.has(cur)) bigrams.set(cur, [])
         bigrams.get(cur)!.push(next)
+        freq.set(cur, (freq.get(cur) ?? 0) + 1)
       }
     }
+  }
+
+  // Weight rare starters more heavily (inverse frequency)
+  const starters: string[] = []
+  for (const w of rawStarters) {
+    const count = freq.get(w) ?? 1
+    const weight = count <= 2 ? 3 : 1
+    for (let i = 0; i < weight; i++) starters.push(w)
   }
 
   return { bigrams, starters }
@@ -55,23 +67,48 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
+// Weighted: 3→5%, 4→25%, 5→50%, 6→20%
+function pickLineLength(): number {
+  const r = Math.random()
+  if (r < 0.05) return 3
+  if (r < 0.30) return 4
+  if (r < 0.80) return 5
+  return 6
+}
+
+function pickUnused<T extends string>(candidates: T[], used: Set<string>, fallback: T[]): T {
+  for (let i = 0; i < 8; i++) {
+    const w = pick(candidates)
+    if (!used.has(w)) return w
+  }
+  const fresh = (fallback as T[]).filter(w => !used.has(w))
+  return fresh.length > 0 ? pick(fresh) : pick(candidates)
+}
+
 function generateLine(
   bigrams: Map<string, string[]>,
   starters: string[],
   allWords: string[],
   length: number
 ): string {
-  const pool = starters.length > 0 ? starters : allWords.filter(w => !STOPWORDS.has(w))
-  const words: string[] = [pick(pool.length > 0 ? pool : allWords)]
+  const pool = starters.length > 0 ? starters : allWords.filter(w => !STOPWORDS.has(w) && w.length >= 3)
+  const used = new Set<string>()
+
+  const first = pickUnused(pool.length > 0 ? pool : allWords, used, allWords)
+  used.add(first)
+  const words: string[] = [first]
 
   for (let i = 1; i < length; i++) {
     const jump = Math.random() < 0.4
-    const next = !jump ? bigrams.get(words[words.length - 1]) : undefined
-    if (next && next.length > 0) {
-      words.push(pick(next))
+    const candidates = !jump ? bigrams.get(words[words.length - 1]) : undefined
+    let next: string
+    if (candidates && candidates.length > 0) {
+      next = pickUnused(candidates, used, allWords)
     } else {
-      words.push(pick(pool.length > 0 ? pool : allWords))
+      next = pickUnused(pool.length > 0 ? pool : allWords, used, allWords)
     }
+    used.add(next)
+    words.push(next)
   }
 
   return words.join(' ')
@@ -92,7 +129,7 @@ export async function GET() {
   }
 
   const lines = Array.from({ length: 4 }, () =>
-    generateLine(bigrams, starters, allWords, 5)
+    generateLine(bigrams, starters, allWords, pickLineLength())
   )
 
   return NextResponse.json({ lines })
