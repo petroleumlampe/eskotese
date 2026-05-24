@@ -34,6 +34,7 @@ ein gedicht dass sich selbst spricht
 das, was für jedes gegenüber unverformbar ist
 wechselwirkend (und wie das schmeckt)
 verhungernd vor schlauen sprüchen
+ein schrotschuss der hofft, zu treffen
 
 ein ungehorsamer weltschmerz-azubi
 ein schwankender blutzuckerspiegel
