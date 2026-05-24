@@ -10,4 +10,4 @@ ein grünes feld, und es stürmend: kontrastreiche widerstandsgruppen. gegen die
 leuchten selbst im traum.
 lanzettig & fiederschnittig, kraut & knospe.
 doch die revolution niedergeschlagen von der zeit.
-und von wärmeren tagen.
+und wärmeren tagen.
