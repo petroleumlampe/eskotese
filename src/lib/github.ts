@@ -33,7 +33,7 @@ export function isGithubConfigured(): boolean {
   return !!(TOKEN && OWNER)
 }
 
-export async function githubSaveText(slug: string, fileContent: string): Promise<boolean> {
+export async function githubSaveText(slug: string, fileContent: string): Promise<{ ok: boolean; error?: string }> {
   const { sha } = await getFileSha(slug)
   const body: Record<string, unknown> = {
     message: sha ? `update: ${slug}` : `add: ${slug}`,
@@ -45,7 +45,11 @@ export async function githubSaveText(slug: string, fileContent: string): Promise
     `/repos/${OWNER}/${REPO}/contents/content/texte/${slug}.md`,
     { method: 'PUT', body: JSON.stringify(body) }
   )
-  return res.ok
+  if (res.ok) return { ok: true }
+  const errBody = await res.json().catch(() => ({}))
+  const error = `GitHub ${res.status}: ${errBody.message ?? 'unbekannter Fehler'}`
+  console.error('[github] Fehler beim Speichern:', error)
+  return { ok: false, error }
 }
 
 export async function githubDeleteText(slug: string): Promise<{ ok: boolean; error?: string }> {

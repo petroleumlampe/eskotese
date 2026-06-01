@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
 
   if (isGithubConfigured()) {
     const fileContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${finalDate}"\n---\n${content}`
-    const ok = await githubSaveText(slug, fileContent)
-    if (!ok) return NextResponse.json({ error: 'Fehler beim Speichern auf GitHub.' }, { status: 500 })
+    const result = await githubSaveText(slug, fileContent)
+    if (!result.ok) return NextResponse.json({ error: result.error ?? 'Fehler beim Speichern auf GitHub.' }, { status: 500 })
     triggerDeploy()
     return NextResponse.json({ success: true, slug, pending: true })
   }
