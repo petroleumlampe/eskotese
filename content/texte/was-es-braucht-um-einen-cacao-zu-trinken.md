@@ -3,7 +3,7 @@ title: "was es braucht, um einen cacao zu trinken"
 date: "2026-05-03"
 ---
 zuerst braucht es raum: etwas, in dem etwas erst etwas sein kann.
-dann nehme man einen riesenhaften klumpen stein, finde einen ort für ihn und rotiere ihn um eine achse von 23 grad. so gibt es einen ankerort im großen etwas. und die jahreszeiten gleich dazu. (das ist für den anfang nicht wenig.)
+dann nehme man einen riesenhaften klumpen stein, finde einen ort für ihn und rotiere ihn um eine achse von 23 grad. so gibt es einen ankerort im großen etwas. und die jahreszeiten gleich dazu. (das ist, für den anfang, nicht wenig.)
 die kraft des cacao wird in bohnenform sein. sie kommt in ihn aus wellen aus licht (licht ist hell, licht lässt uns sehen), die wiederum von einem monströsen lagerfeuerball kommen, der sich selber speist. man muss kein holz nachlegen. niemand hat ihn angezündet.
 erst werden wir sagen: das ist gott. gott kommt wieder. jeden tag. dann werden wir sagen: sonne.
 als nächstes brauchen wir etwas, das sich wasser nennt. (obwohl. wahrscheinlich nennt es selbst sich anders, würde einen namen sagen, der gluckert und nass aus mündungen statt mündern tritt). dieses wasser könnte im weiten raum schwer zu bekommen sein, es ist recht rar. doch wo wir sind, haben wir turbulent große becken voll. wahrlich unerschöpflich. und das brauchen wir, denn wasser lässt alles fließen, ohne wasser bleibt alles pulver.
