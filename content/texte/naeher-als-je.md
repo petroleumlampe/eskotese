@@ -10,4 +10,5 @@ weil alles mehr als jemals in verbindung mit dir ist, ich so beeinflusst von dir
 weil ich dich so sehr verstehe
 
 fühlt es sich im gleichen zug so absurd an, dass du angeblich nicht mehr lebst
+
 ich bringe das nicht zusammen
