@@ -19,7 +19,7 @@ um mich ein band, das lodernd schillert
 
 wenn alle winzigen haare der brauen
 sich wie kompassnadeln gen bosheit wenden
-flutet dunkle macht den körper und brauen
+flutet dunkle macht den körper und klauen
 werden aus vorher vertrauten händen
 
 es haften blicke, es koppeln sich herzen
