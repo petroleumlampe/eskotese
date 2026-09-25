@@ -1,6 +1,6 @@
 const TOKEN = process.env.GITHUB_TOKEN
 const OWNER = process.env.GITHUB_OWNER
-const REPO = process.env.GITHUB_REPO || 'eskotese'
+const REPO = process.env.GITHUB_REPO || 'frevelgrube'
 const DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK_URL
 
 export async function triggerDeploy() {

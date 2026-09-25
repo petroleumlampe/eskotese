@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="site-title">
-        <Link href="/">eskotese</Link>
+        <Link href="/">frevelgrube</Link>
       </div>
       <p className="site-subtitle">
         ich fuge worte zusammen, eine mauer entsteht.<br />

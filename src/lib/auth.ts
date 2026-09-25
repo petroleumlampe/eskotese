@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import { cookies } from 'next/headers'
 
-export const SESSION_COOKIE = 'eskotese_session'
+export const SESSION_COOKIE = 'frevelgrube_session'
 
 function makeToken(password: string): string {
   const secret = process.env.ADMIN_PASSWORD || ''
