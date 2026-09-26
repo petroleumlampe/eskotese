@@ -45,6 +45,48 @@ export function getTextBySlug(slug: string): Text | null {
   }
 }
 
+export interface TextLink {
+  slug: string
+  title: string
+  short: string
+}
+
+const SHORT_MAX = 26
+const FILLER = new Set([
+  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'einer', 'eines', 'einen', 'einem',
+  'und', '&', '+', 'zu', 'um', 'in', 'im', 'am', 'an', 'auf', 'über', 'mit', 'von', 'vom',
+  'für', 'aus', 'bei', 'nach',
+])
+
+// Kürzt lange Titel: erst am ersten Satzzeichen abschneiden, dann auf ganze Wörter
+// bis SHORT_MAX Zeichen, zuletzt Füllwörter am Ende entfernen.
+export function shortTitle(title: string): string {
+  let t = title.trim()
+  if (t.length <= SHORT_MAX) return t
+  const cut = t.search(/[,;:(–—]/)
+  if (cut > 0) t = t.slice(0, cut).trim()
+  if (t.length > SHORT_MAX) {
+    let out = ''
+    for (const w of t.split(/\s+/)) {
+      const next = out ? `${out} ${w}` : w
+      if (next.length > SHORT_MAX && out) break
+      out = next
+    }
+    t = out
+  }
+  const words = t.split(/\s+/)
+  while (words.length > 1 && FILLER.has(words[words.length - 1].toLowerCase())) words.pop()
+  return words.join(' ')
+}
+
+export function getNeighbors(slug: string): { older: TextLink | null; newer: TextLink | null } {
+  const texte = getAllTexte().filter(t => t.slug)
+  const i = texte.findIndex(t => t.slug === slug)
+  if (i === -1) return { older: null, newer: null }
+  const link = (t?: Text) => (t ? { slug: t.slug, title: t.title, short: shortTitle(t.title) } : null)
+  return { older: link(texte[i + 1]), newer: link(texte[i - 1]) }
+}
+
 export function saveText(slug: string, title: string, date: string, content: string): void {
   if (!fs.existsSync(contentDir)) fs.mkdirSync(contentDir, { recursive: true })
   const body = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${date}"\n---\n${content}`

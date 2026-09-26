@@ -245,6 +245,52 @@ a:hover {
   color: var(--yellow);
 }
 
+.text-nav + .back-link {
+  margin-top: 1.25rem;
+}
+
+/* Vorheriger / nächster Text */
+.text-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.text-nav-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  max-width: 45%;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.text-nav-link:hover {
+  color: var(--yellow);
+}
+
+.text-nav-older {
+  text-align: right;
+}
+
+.text-nav-arrow {
+  flex-shrink: 0;
+}
+
+/* Titel sind schon gekürzt (shortTitle); zwei Zeilen als Sicherheitsnetz */
+.text-nav-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
 /* Über page */
 .ueber-page {
   display: flex;

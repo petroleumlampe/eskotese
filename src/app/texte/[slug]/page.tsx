@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getAllTexte, getTextBySlug } from '@/lib/texte'
+import { getAllTexte, getNeighbors, getTextBySlug } from '@/lib/texte'
 import SingleTextContent from '@/components/SingleTextContent'
 
 export const dynamic = 'force-dynamic'
@@ -17,5 +17,6 @@ export default async function SingleTextPage({ params }: Props) {
   const { slug } = await params
   const text = getTextBySlug(slug)
   if (!text) notFound()
-  return <SingleTextContent text={text} />
+  const { older, newer } = getNeighbors(slug)
+  return <SingleTextContent text={text} older={older} newer={newer} />
 }

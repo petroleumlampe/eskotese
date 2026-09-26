@@ -2,10 +2,12 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
-import type { Text } from '@/lib/texte'
+import type { Text, TextLink } from '@/lib/texte'
 
 interface Props {
   text: Text
+  older: TextLink | null
+  newer: TextLink | null
 }
 
 function StackedDate({ dateStr }: { dateStr: string }) {
@@ -23,7 +25,7 @@ function StackedDate({ dateStr }: { dateStr: string }) {
   )
 }
 
-export default function SingleTextContent({ text }: Props) {
+export default function SingleTextContent({ text, older, newer }: Props) {
   const { isLoggedIn } = useAuth()
   const router = useRouter()
 
@@ -52,6 +54,22 @@ export default function SingleTextContent({ text }: Props) {
         <div className="text-content">{text.content}</div>
         <StackedDate dateStr={text.date} />
       </article>
+      {(older || newer) && (
+        <nav className="text-nav">
+          {newer ? (
+            <Link href={`/texte/${newer.slug}`} className="text-nav-link text-nav-newer" title={newer.title}>
+              <span className="text-nav-arrow">←</span>
+              <span className="text-nav-title">{newer.short}</span>
+            </Link>
+          ) : <span />}
+          {older && (
+            <Link href={`/texte/${older.slug}`} className="text-nav-link text-nav-older" title={older.title}>
+              <span className="text-nav-title">{older.short}</span>
+              <span className="text-nav-arrow">→</span>
+            </Link>
+          )}
+        </nav>
+      )}
       <Link href="/texte" className="back-link">← alle texte</Link>
     </div>
   )
