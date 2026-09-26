@@ -16,7 +16,7 @@ const STOPWORDS = new Set([
 ])
 
 // Wörter, mit denen eine Zeile nicht enden soll (klingt abgeschnitten)
-const WEAK_ENDINGS = new Set([
+export const WEAK_ENDINGS = new Set([
   'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'einen', 'einem', 'eines',
   'und', 'oder', 'aber', 'denn', 'weil', 'wenn', 'als', 'wie', 'dass', 'ob', '&',
   'in', 'an', 'auf', 'von', 'zu', 'mit', 'bei', 'nach', 'aus', 'für', 'um',

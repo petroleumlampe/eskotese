@@ -169,20 +169,14 @@ a:hover {
   opacity: 1;
 }
 
-/* Umbruch: hängender Einzug; kurze Verse als Treppe (TextBody.tsx) */
-.vers {
+/* Umbruch: hängender Einzug, kurze Verse als Treppe, Prosa bündig (TextBody.tsx) */
+.text-content:not(.prosa) .vers {
   padding-left: 0.9em;
   text-indent: -0.9em;
 }
 
-.prosa .vers,
-.vers.treppe {
-  padding-left: 0;
-  text-indent: 0;
-}
-
 .stufe {
-  display: block;
+  white-space: nowrap;
 }
 
 .leerzeile {
@@ -258,12 +252,16 @@ a:hover {
   margin-bottom: 2.5rem;
 }
 
-.back-link {
-  display: inline-block;
+.back-link,
+.text-nav-link {
   color: var(--muted);
   font-size: 0.85rem;
-  margin-top: 3rem;
   letter-spacing: 0.04em;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 3rem;
 }
 
 .back-link:hover {
@@ -288,17 +286,11 @@ a:hover {
   align-items: baseline;
   gap: 0.4em;
   max-width: 45%;
-  color: var(--muted);
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
   line-height: 1.5;
 }
 
-.text-nav-link:hover {
-  color: var(--yellow);
-}
-
 .text-nav-older {
+  margin-left: auto;
   text-align: right;
 }
 

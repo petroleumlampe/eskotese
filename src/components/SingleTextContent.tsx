@@ -26,6 +26,17 @@ function StackedDate({ dateStr }: { dateStr: string }) {
   )
 }
 
+function NavLink({ link, dir }: { link: TextLink; dir: 'newer' | 'older' }) {
+  const arrow = <span className="text-nav-arrow">{dir === 'newer' ? '←' : '→'}</span>
+  return (
+    <Link href={`/texte/${link.slug}`} className={`text-nav-link text-nav-${dir}`} title={link.title}>
+      {dir === 'newer' && arrow}
+      <span className="text-nav-title">{link.short}</span>
+      {dir === 'older' && arrow}
+    </Link>
+  )
+}
+
 export default function SingleTextContent({ text, older, newer }: Props) {
   const { isLoggedIn } = useAuth()
   const router = useRouter()
@@ -57,18 +68,8 @@ export default function SingleTextContent({ text, older, newer }: Props) {
       </article>
       {(older || newer) && (
         <nav className="text-nav">
-          {newer ? (
-            <Link href={`/texte/${newer.slug}`} className="text-nav-link text-nav-newer" title={newer.title}>
-              <span className="text-nav-arrow">←</span>
-              <span className="text-nav-title">{newer.short}</span>
-            </Link>
-          ) : <span />}
-          {older && (
-            <Link href={`/texte/${older.slug}`} className="text-nav-link text-nav-older" title={older.title}>
-              <span className="text-nav-title">{older.short}</span>
-              <span className="text-nav-arrow">→</span>
-            </Link>
-          )}
+          {newer && <NavLink link={newer} dir="newer" />}
+          {older && <NavLink link={older} dir="older" />}
         </nav>
       )}
       <Link href="/texte" className="back-link">← alle texte</Link>

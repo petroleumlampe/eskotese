@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 // Umgebrochene Verse fallen als Treppe die Seite hinunter. Würde die Treppe mehr
 // als MAX_STUFEN Stufen bekommen, bleibt es beim hängenden Einzug.
@@ -40,8 +40,8 @@ export default function TextBody({ content }: { content: string }) {
   const [layout, setLayout] = useState<Layout>([])
   // Text bleibt unsichtbar, bis die Treppe mit der richtigen Schrift berechnet ist.
   const [ready, setReady] = useState(false)
-  const lines = content.split('\n')
-  const prosa = isProsa(lines)
+  const lines = useMemo(() => content.split('\n'), [content])
+  const prosa = useMemo(() => isProsa(lines), [lines])
 
   useEffect(() => {
     const el = ref.current
@@ -55,10 +55,9 @@ export default function TextBody({ content }: { content: string }) {
     const compute = () => {
       const style = getComputedStyle(el)
       ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
-      const width = el.clientWidth - 2
       const step = parseFloat(style.fontSize) * STUFE_EM
       const measure = (s: string) => ctx.measureText(s).width
-      setLayout(lines.map(l => (l.trim() ? treppe(l, width, step, measure) : null)))
+      setLayout(lines.map(l => treppe(l, el.clientWidth, step, measure)))
     }
 
     let frame = 0
@@ -68,32 +67,35 @@ export default function TextBody({ content }: { content: string }) {
     }
     const observer = new ResizeObserver(schedule)
     observer.observe(el)
-    let cancelled = false
+    let revealed = false
     const reveal = () => {
-      if (cancelled) return
+      if (revealed) return
+      revealed = true
+      clearTimeout(fallback)
       compute()
       setReady(true)
     }
     document.fonts.ready.then(reveal)
     const fallback = setTimeout(reveal, 1500)
     return () => {
-      cancelled = true
+      revealed = true
       observer.disconnect()
       cancelAnimationFrame(frame)
       clearTimeout(fallback)
     }
-  }, [content]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [lines, prosa])
 
   return (
     <div className={`text-content${prosa ? ' prosa' : ''}${ready ? ' bereit' : ''}`} ref={ref}>
+      <noscript><style>{'.text-content { opacity: 1; }'}</style></noscript>
       {lines.map((line, i) => {
         if (!line.trim()) return <div key={i} className="leerzeile" />
         const stufen = layout[i]
         if (!stufen) return <div key={i} className="vers">{line}</div>
         return (
-          <div key={i} className="vers treppe">
+          <div key={i}>
             {stufen.map((s, j) => (
-              <span key={j} className="stufe" style={{ paddingLeft: `${j * STUFE_EM}em` }}>{s}</span>
+              <div key={j} className="stufe" style={{ paddingLeft: `${j * STUFE_EM}em` }}>{s}</div>
             ))}
           </div>
         )

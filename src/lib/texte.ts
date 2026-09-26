@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { WEAK_ENDINGS } from '@/lib/gedicht'
 
 const contentDir = path.join(process.cwd(), 'content', 'texte')
 
@@ -52,11 +53,7 @@ export interface TextLink {
 }
 
 const SHORT_MAX = 26
-const FILLER = new Set([
-  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'einer', 'eines', 'einen', 'einem',
-  'und', '&', '+', 'zu', 'um', 'in', 'im', 'am', 'an', 'auf', 'über', 'mit', 'von', 'vom',
-  'für', 'aus', 'bei', 'nach',
-])
+const isFiller = (w: string) => w === '+' || WEAK_ENDINGS.has(w.toLowerCase())
 
 // Kürzt lange Titel: erst am ersten Satzzeichen abschneiden, dann auf ganze Wörter
 // bis SHORT_MAX Zeichen, zuletzt Füllwörter am Ende entfernen.
@@ -75,16 +72,17 @@ export function shortTitle(title: string): string {
     t = out
   }
   const words = t.split(/\s+/)
-  while (words.length > 1 && FILLER.has(words[words.length - 1].toLowerCase())) words.pop()
+  while (words.length > 1 && isFiller(words[words.length - 1])) words.pop()
   return words.join(' ')
 }
 
-export function getNeighbors(slug: string): { older: TextLink | null; newer: TextLink | null } {
+// Text samt chronologischen Nachbarn; Dateien ohne Slug (z. B. ".md") sind nicht verlinkbar.
+export function getTextWithNeighbors(slug: string): { text: Text; older: TextLink | null; newer: TextLink | null } | null {
   const texte = getAllTexte().filter(t => t.slug)
   const i = texte.findIndex(t => t.slug === slug)
-  if (i === -1) return { older: null, newer: null }
+  if (i === -1) return null
   const link = (t?: Text) => (t ? { slug: t.slug, title: t.title, short: shortTitle(t.title) } : null)
-  return { older: link(texte[i + 1]), newer: link(texte[i - 1]) }
+  return { text: texte[i], older: link(texte[i + 1]), newer: link(texte[i - 1]) }
 }
 
 export function saveText(slug: string, title: string, date: string, content: string): void {
