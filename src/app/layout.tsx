@@ -12,6 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de">
       <body>
+        <noscript><style>{'.text-content { opacity: 1; }'}</style></noscript>
         <AuthProvider>
           <div className="page-wrapper">
             <Header />

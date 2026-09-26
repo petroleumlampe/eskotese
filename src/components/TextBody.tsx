@@ -38,13 +38,18 @@ function treppe(line: string, width: number, step: number, measure: (s: string) 
 export default function TextBody({ content }: { content: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [layout, setLayout] = useState<Layout>([])
+  // Text bleibt unsichtbar, bis die Treppe mit der richtigen Schrift berechnet ist.
+  const [ready, setReady] = useState(false)
   const lines = content.split('\n')
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
     const ctx = document.createElement('canvas').getContext('2d')
-    if (!ctx || isProsa(lines)) return
+    if (!ctx || isProsa(lines)) {
+      setReady(true)
+      return
+    }
 
     const compute = () => {
       const style = getComputedStyle(el)
@@ -62,15 +67,24 @@ export default function TextBody({ content }: { content: string }) {
     }
     const observer = new ResizeObserver(schedule)
     observer.observe(el)
-    document.fonts.ready.then(schedule)
+    let cancelled = false
+    const reveal = () => {
+      if (cancelled) return
+      compute()
+      setReady(true)
+    }
+    document.fonts.ready.then(reveal)
+    const fallback = setTimeout(reveal, 1500)
     return () => {
+      cancelled = true
       observer.disconnect()
       cancelAnimationFrame(frame)
+      clearTimeout(fallback)
     }
   }, [content]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="text-content" ref={ref}>
+    <div className={`text-content${ready ? ' bereit' : ''}`} ref={ref}>
       {lines.map((line, i) => {
         if (!line.trim()) return <div key={i} className="leerzeile" />
         const stufen = layout[i]

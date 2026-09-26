@@ -161,6 +161,12 @@ a:hover {
 .text-content {
   line-height: 2;
   color: var(--yellow-dim);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.text-content.bereit {
+  opacity: 1;
 }
 
 /* Umbruch: hängender Einzug; kurze Verse als Treppe (TextBody.tsx) */
