@@ -13,9 +13,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'titel und text sind pflicht.' }, { status: 400 })
   }
 
-  const base = slugify(title)
-  const slug = textExists(base) ? `${base}-${Date.now()}` : base
   const finalDate = date || new Date().toISOString().split('T')[0]
+  // Titel nur aus Satzzeichen ("?", ".") ergeben keinen Slug → Datum als Ersatz
+  const base = slugify(title) || `text-${finalDate}`
+  const slug = textExists(base) ? `${base}-${Date.now()}` : base
 
   if (isGithubConfigured()) {
     const fileContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: "${finalDate}"\n---\n${content}`

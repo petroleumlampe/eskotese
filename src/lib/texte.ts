@@ -76,9 +76,9 @@ export function shortTitle(title: string): string {
   return words.join(' ')
 }
 
-// Text samt chronologischen Nachbarn; Dateien ohne Slug (z. B. ".md") sind nicht verlinkbar.
+// Text samt chronologischen Nachbarn
 export function getTextWithNeighbors(slug: string): { text: Text; older: TextLink | null; newer: TextLink | null } | null {
-  const texte = getAllTexte().filter(t => t.slug)
+  const texte = getAllTexte()
   const i = texte.findIndex(t => t.slug === slug)
   if (i === -1) return null
   const link = (t?: Text) => (t ? { slug: t.slug, title: t.title, short: shortTitle(t.title) } : null)
