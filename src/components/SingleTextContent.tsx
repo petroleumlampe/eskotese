@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import TextBody from '@/components/TextBody'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import type { Text, TextLink } from '@/lib/texte'
@@ -51,7 +52,7 @@ export default function SingleTextContent({ text, older, newer }: Props) {
       )}
       <article>
         <h2 className="text-title">{text.title}</h2>
-        <div className="text-content">{text.content}</div>
+        <TextBody content={text.content} />
         <StackedDate dateStr={text.date} />
       </article>
       {(older || newer) && (

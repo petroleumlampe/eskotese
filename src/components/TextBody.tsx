@@ -1,0 +1,88 @@
+'use client'
+import { useEffect, useRef, useState } from 'react'
+
+// Umgebrochene Verse fallen als Treppe die Seite hinunter. Würde die Treppe mehr
+// als MAX_STUFEN Stufen bekommen, bleibt es beim hängenden Einzug.
+const STUFE_EM = 0.9
+const MAX_STUFEN = 6
+
+type Layout = (string[] | null)[]
+
+// Prosa bekommt keine Treppe. Als Prosa gilt ein Text nur, wenn mindestens zwei Drittel
+// seiner Zeilen lange Absätze mit mehreren Sätzen sind; im Zweifel ist es Lyrik.
+function isProsa(lines: string[]): boolean {
+  const filled = lines.map(l => l.trim()).filter(Boolean)
+  if (filled.length < 3) return false
+  const absaetze = filled.filter(l => l.length > 120 && (l.match(/[.!?:;] +\S/g) ?? []).length >= 2)
+  return absaetze.length / filled.length >= 2 / 3
+}
+
+function treppe(line: string, width: number, step: number, measure: (s: string) => number): string[] | null {
+  const words = line.trim().split(/\s+/)
+  const stufen: string[] = []
+  let current = ''
+  for (const w of words) {
+    const next = current ? `${current} ${w}` : w
+    if (current && measure(next) > width - stufen.length * step) {
+      stufen.push(current)
+      if (stufen.length >= MAX_STUFEN) return null
+      current = w
+    } else {
+      current = next
+    }
+  }
+  stufen.push(current)
+  return stufen.length > 1 ? stufen : null
+}
+
+export default function TextBody({ content }: { content: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [layout, setLayout] = useState<Layout>([])
+  const lines = content.split('\n')
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ctx = document.createElement('canvas').getContext('2d')
+    if (!ctx || isProsa(lines)) return
+
+    const compute = () => {
+      const style = getComputedStyle(el)
+      ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
+      const width = el.clientWidth - 2
+      const step = parseFloat(style.fontSize) * STUFE_EM
+      const measure = (s: string) => ctx.measureText(s).width
+      setLayout(lines.map(l => (l.trim() ? treppe(l, width, step, measure) : null)))
+    }
+
+    let frame = 0
+    const schedule = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(compute)
+    }
+    const observer = new ResizeObserver(schedule)
+    observer.observe(el)
+    document.fonts.ready.then(schedule)
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(frame)
+    }
+  }, [content]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <div className="text-content" ref={ref}>
+      {lines.map((line, i) => {
+        if (!line.trim()) return <div key={i} className="leerzeile" />
+        const stufen = layout[i]
+        if (!stufen) return <div key={i} className="vers">{line}</div>
+        return (
+          <div key={i} className="vers treppe">
+            {stufen.map((s, j) => (
+              <span key={j} className="stufe" style={{ paddingLeft: `${j * STUFE_EM}em` }}>{s}</span>
+            ))}
+          </div>
+        )
+      })}
+    </div>
+  )
+}

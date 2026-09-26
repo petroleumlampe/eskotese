@@ -159,9 +159,27 @@ a:hover {
 }
 
 .text-content {
-  white-space: pre-line;
   line-height: 2;
   color: var(--yellow-dim);
+}
+
+/* Umbruch: hängender Einzug; kurze Verse als Treppe (TextBody.tsx) */
+.vers {
+  padding-left: 0.9em;
+  text-indent: -0.9em;
+}
+
+.vers.treppe {
+  padding-left: 0;
+  text-indent: 0;
+}
+
+.stufe {
+  display: block;
+}
+
+.leerzeile {
+  height: 2em;
 }
 
 /* Texte list */
