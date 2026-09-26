@@ -8,7 +8,7 @@ const MAX_STUFEN = 6
 
 type Layout = (string[] | null)[]
 
-// Prosa bekommt keine Treppe. Als Prosa gilt ein Text nur, wenn mindestens zwei Drittel
+// Prosa bekommt weder Treppe noch Einzug. Als Prosa gilt ein Text nur, wenn mindestens zwei Drittel
 // seiner Zeilen lange Absätze mit mehreren Sätzen sind; im Zweifel ist es Lyrik.
 function isProsa(lines: string[]): boolean {
   const filled = lines.map(l => l.trim()).filter(Boolean)
@@ -41,12 +41,13 @@ export default function TextBody({ content }: { content: string }) {
   // Text bleibt unsichtbar, bis die Treppe mit der richtigen Schrift berechnet ist.
   const [ready, setReady] = useState(false)
   const lines = content.split('\n')
+  const prosa = isProsa(lines)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
     const ctx = document.createElement('canvas').getContext('2d')
-    if (!ctx || isProsa(lines)) {
+    if (!ctx || prosa) {
       setReady(true)
       return
     }
@@ -84,7 +85,7 @@ export default function TextBody({ content }: { content: string }) {
   }, [content]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`text-content${ready ? ' bereit' : ''}`} ref={ref}>
+    <div className={`text-content${prosa ? ' prosa' : ''}${ready ? ' bereit' : ''}`} ref={ref}>
       {lines.map((line, i) => {
         if (!line.trim()) return <div key={i} className="leerzeile" />
         const stufen = layout[i]
